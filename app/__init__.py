@@ -6,17 +6,17 @@ from config import Config
 import base64
 from os import getenv
 from cryptography.fernet import Fernet
+from flask_login import LoginManager
 
 
 app = Flask(__name__)
 app.config.from_object(Config)
 #print(app.config)
 
+db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 
-#db = SQLAlchemy(app)
-#migrate = Migrate(app, db)
-
-#login = LoginManager(app)
+login = LoginManager(app)
 
 fernet = Fernet(base64.urlsafe_b64encode(getenv('FERNET_SECRET').encode('utf-8')))
 #usage:
