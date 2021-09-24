@@ -37,7 +37,8 @@ class User(UserMixin, db.Model):
     is_enabled = db.Column(db.Boolean, nullable=False, default=True)
 
     def __repr__(self):
-        return f'<Username: {self.username}>; <userlevel: {self.is_superuser}>'
+        return f'<Username: {self.username}>; <userlevel: {self.userlevel}>; <API: {self.APIkey}>'
+
 
     def set_password(self, password):
         salt = bcrypt.gensalt(14)
@@ -47,12 +48,14 @@ class User(UserMixin, db.Model):
         self.salt = salt.decode()
         return True
 
+
     def check_password(self, password):
         c_password = bcrypt.hashpw(password.encode(), self.salt.encode()).decode()
         if c_password == self.password_hash:
             return True
         else:
             return False
+
 
     def set_enc_data(self, kwargs):
         """
@@ -72,6 +75,7 @@ class User(UserMixin, db.Model):
             self.phone = fernet.encrypt( kwargs['phone'].encode('utf-8'))
 
         return True
+
 
     def get_enc_data(self, *args):
         """
@@ -93,27 +97,31 @@ class User(UserMixin, db.Model):
         return params
 
 
-    '''
-    def setAPIkey(self, key):
-        self.APIkey = key
-        return True
-    '''
-
-    '''
-    def get_self(self):
-        return json.dumps({'ID': self.id, 'username': self.username, 'APIkey': self.APIkey,
-                           'created': self.created.strftime("%m/%d/%Y, %H:%M:%S"), 'is superuser': self.is_superuser})
-    '''
-
-    '''
     def get_self_json(self):
         return {
             'id': self.id,
             'username': self.username,
-            'email': self.email,
             'settings': self.settings,
             'created_at': self.created_at.strftime("%m/%d/%Y, %H:%M:%S"),
             'last_modified_at': self.last_modified_at.strftime("%m/%d/%Y, %H:%M:%S"),
             'is_superuser': self.is_superuser,
-            'is_enabled': self.is_enabled
-    '''
+            'is_enabled': self.is_enabled,
+            'email': self.get_enc_data(['email']),
+            'name': self.get_enc_data(['name']),
+            'address': self.get_enc_data(['address']),
+            'phone': self.get_enc_data(['phone']),
+            'APIkey': self.APIkey,
+            'userlevel': self.userlevel
+        }
+
+
+    def re_enc_data(self, new_fernet):
+
+        old_data = self.get_enc_data( ['email', 'name', 'address', 'phone'] )
+
+        self.email = new_fernet.encrypt(old_data['email'].encode('utf-8'))
+        self.name = new_fernet.encrypt(old_data['name'].encode('utf-8'))
+        self.address = new_fernet.encrypt(old_data['address'].encode('utf-8'))
+        self.phone = new_fernet.encrypt(old_data['phone'].encode('utf-8'))
+
+        return True
