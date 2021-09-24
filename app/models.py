@@ -1,8 +1,9 @@
 import json
 from datetime import datetime
+from random import SystemRandom
 
 import bcrypt
-from app import db, login
+from app import db, login, fernet
 from datetime import datetime
 from flask_login import UserMixin
 
@@ -12,14 +13,22 @@ def load_user(id):
     return User.query.get(int(id))
 
 
+
+def generate_API(N):
+    import string
+    key = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(N))
+    return key
+
+
+
 class User(UserMixin, db.Model):
     id = db.Column(db.Integer, index=True, primary_key=True)
     username = db.Column(db.String(32), unique=True, nullable=False)
-    email = db.Column(db.String(40), nullable=False, default='nomail@all')  #enc
-    #name =
-    #address =
-    #phone =
-    #APIkey =
+    email = db.Column(db.String, nullable=False, default= fernet.encrypt( 'nomail@all'.encode('utf-8') ) )
+    name = db.Column(db.String, nullable=False, default= fernet.encrypt( 'noname'.encode('utf-8') ) )
+    address = db.Column(db.String, nullable=False, default= fernet.encrypt( 'noaddress'.encode('utf-8') ) )
+    phone = db.Column(db.String, nullable=False, default= fernet.encrypt( 'nophone'.encode('utf-8') ) )
+    APIkey = db.Column(db.String(32), nullable=False, default=generate_API(32))
     password_hash = db.Column(db.String(128), nullable=False)
     salt = db.Column(db.String(128), nullable=False)
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
@@ -44,6 +53,46 @@ class User(UserMixin, db.Model):
             return True
         else:
             return False
+
+    def set_enc_data(self, kwargs):
+        """
+        usage:
+            u = User()
+            u.set_enc_data({ 'email': 'testmail@test.te', 'name': 'John Doe', 'address': '1234, Qwert, Zuio st. 45.' ... })
+        """
+        if not len(kwargs): return False
+
+        if 'email' in kwargs:
+            self.email = fernet.encrypt( kwargs['email'].encode('utf-8') )
+        if 'name' in kwargs:
+            self.name = fernet.encrypt( kwargs['name'].encode('utf-8'))
+        if 'address' in kwargs:
+            self.address = fernet.encrypt( kwargs['address'].encode('utf-8'))
+        if 'phone' in kwargs:
+            self.phone = fernet.encrypt( kwargs['phone'].encode('utf-8'))
+
+        return True
+
+    def get_enc_data(self, *args):
+        """
+            usage:
+                u = User()
+                u.get_enc_data([ 'email', 'address', ... ])
+                -> { 'email': 'testmail@test.te', 'address': '1234, Qwert, Zuio st. 45.', ... }
+        """
+        if not len(args): return False
+
+        params = {}
+        for arg in args:
+            try:
+                for arg in args:
+                    params[arg] = fernet.decrypt(self.arg).decode('utf-8')
+            except:
+                return False
+
+        return params
+
+
     '''
     def setAPIkey(self, key):
         self.APIkey = key
