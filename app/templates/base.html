@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <!--
+    <meta http-equiv="Content-Security-Policy" content="upgrade-insecure-requests">
+    -->
+
+    <title>
+        {% if title %}
+            {{title}}
+        {% else %}
+            TERMIT
+        {%endif%}
+    </title>
+
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link rel="stylesheet" href="/static/css/materialize.min.css">
+    <link rel="stylesheet" href="/static/css/base.css">
+
+    {% block header %}
+    {% endblock %}
+
+    <script src="/static/js/jquery-3.6.0.js"></script>
+    <script src="/static/js/materialize.min.js"></script>
+
+</head>
+<body>
+
+    {% include 'loader.html' %}
+
+    {% block body %}
+    {% endblock %}
+
+</body>
+</html>

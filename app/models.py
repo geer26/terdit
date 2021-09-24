@@ -125,3 +125,21 @@ class User(UserMixin, db.Model):
         self.phone = new_fernet.encrypt(old_data['phone'].encode('utf-8'))
 
         return True
+
+
+class Event(db.Model):
+    id = db.Column(db.Integer, index=True, primary_key=True)
+
+    def __repr__(self):
+        return f'<Username: {self.username}>; <userlevel: {self.userlevel}>; <API: {self.APIkey}>'
+
+
+class Wallet(db.Model):
+    id = db.Column(db.Integer, index=True, primary_key=True)
+    last_modified_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
+    balance = db.Column(db.Integer, nullable=False, default=0)
+    owner = db.Column(db.Integer, db.ForeignKey('user.id', ondelete="CASCADE") )
+    modified_by = db.Column( db.Integer, db.ForeignKey('user.id') )
+
+    def __repr__(self):
+        return f'<Username: {self.owner}>; <balance: {self.balance}>'
