@@ -13,12 +13,10 @@ def load_user(id):
     return User.query.get(int(id))
 
 
-
 def generate_API(N):
     import string
     key = ''.join(SystemRandom().choice(string.ascii_uppercase + string.digits + string.ascii_lowercase) for _ in range(N))
     return key
-
 
 
 class User(UserMixin, db.Model):
@@ -34,7 +32,7 @@ class User(UserMixin, db.Model):
     created_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     last_modified_at = db.Column(db.Date(), default=datetime.now(), nullable=False)
     userlevel = db.Column(db.Integer, nullable=False, default=2) #0-SU; 1-ADM; 2-CL
-    is_enabled = db.Column(db.Boolean, nullable=False, default=True)
+    is_enabled = db.Column(db.Boolean, nullable=False, default=False)
 
     def __repr__(self):
         return f'<Username: {self.username}>; <userlevel: {self.userlevel}>; <API: {self.APIkey}>'
@@ -57,22 +55,22 @@ class User(UserMixin, db.Model):
             return False
 
 
-    def set_enc_data(self, kwargs):
+    def set_enc_data(self, **kwargs):
         """
         usage:
             u = User()
-            u.set_enc_data({ 'email': 'testmail@test.te', 'name': 'John Doe', 'address': '1234, Qwert, Zuio st. 45.' ... })
+            u.set_enc_data( email= 'testmail@test.te', name= 'John Doe', address= '1234, Qwert, Zuio st. 45.' ... )
         """
         if not len(kwargs): return False
 
-        if 'email' in kwargs:
-            self.email = fernet.encrypt( kwargs['email'].encode('utf-8') )
-        if 'name' in kwargs:
-            self.name = fernet.encrypt( kwargs['name'].encode('utf-8'))
-        if 'address' in kwargs:
-            self.address = fernet.encrypt( kwargs['address'].encode('utf-8'))
-        if 'phone' in kwargs:
-            self.phone = fernet.encrypt( kwargs['phone'].encode('utf-8'))
+        for key in kwargs:
+            pass
+
+        for key in kwargs:
+            if not key in self.__dict__:
+                continue
+            else:
+                self.key = fernet.encrypt( kwargs[key].encode('utf-8') )
 
         return True
 

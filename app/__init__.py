@@ -22,4 +22,4 @@ fernet = Fernet(base64.urlsafe_b64encode(getenv('FERNET_SECRET').encode('utf-8')
 #fernet.encrypt(message.encode('utf-8'))
 #fernet.decrypt(self.subject).decode('utf-8')
 
-from app import routes, models
+from app import models, routes
