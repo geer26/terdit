@@ -1,10 +1,17 @@
 {% extends 'base.html' %}
 
 {% block header %}
+    <link rel="stylesheet" href="/static/css/modals.css">
+    <script src="/static/js/modals.js" defer></script>
 {% endblock %}
 
 {% block body %}
 
+    {% include 'loginmodal.html' %}
+
     HELLO WORLD!
+    <a href="#"><p>BELÉPÉS</p></a>
+    <a href="#"><p>REGISZTRÁCIÓ</p></a>
+    <a href="#"><p>ESEMÉNYNAPTÁR</p></a>
 
 {% endblock %}
