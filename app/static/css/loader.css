@@ -16,7 +16,6 @@
 .loaderfront{
     width: 200px;
     height:200px;
-    border: 1px solid red;
 
     background-image: url('/static/img/loader_bell.png');
     background-repeat: no-repeat;

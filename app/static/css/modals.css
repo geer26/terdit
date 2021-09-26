@@ -29,3 +29,26 @@
     text-align: center;
 
 }
+
+.closeicon{
+
+    background-image: url('/static/img/close.png');
+    background-repeat: no-repeat;
+    background-size: cover;
+
+    position: absolute;
+    top: -15px;
+    right: -15px;
+    height: 30px;
+    width: 30px;
+    transition-duration: .2s;
+
+    cursor: pointer;
+}
+
+.closeicon:hover{
+    height: 36px;
+    width: 36px;
+    top: -18px;
+    right: -18px;
+}
