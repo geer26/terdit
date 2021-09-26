@@ -6,6 +6,7 @@ import base64
 from os import getenv
 from cryptography.fernet import Fernet
 from flask_login import LoginManager
+from flask_socketio import SocketIO
 
 
 app = Flask(__name__)
@@ -22,4 +23,9 @@ fernet = Fernet(base64.urlsafe_b64encode(getenv('FERNET_SECRET').encode('utf-8')
 #fernet.encrypt(message.encode('utf-8'))
 #fernet.decrypt(self.subject).decode('utf-8')
 
-from app import models, routes
+#az asszinkron kéréskezelő példányosítása és a szerverhez csatolása
+socket = SocketIO(app)
+#??????????? - ezzel működik!
+socket.init_app(app, cors_allowed_origins="*")
+
+from app import models, routes, socketio
