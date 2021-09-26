@@ -30,6 +30,11 @@
 
 }
 
+.loginmodal h3{
+    margin-left: 20px;
+    margin-right: 20px;
+}
+
 .closeicon{
 
     background-image: url('/static/img/close.png');
