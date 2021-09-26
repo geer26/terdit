@@ -8,10 +8,11 @@
 {% block body %}
 
     {% include 'loginmodal.html' %}
+    {% include 'regmodal.html' %}
 
     HELLO WORLD!
-    <a href="#"><p>BELÉPÉS</p></a>
-    <a href="#"><p>REGISZTRÁCIÓ</p></a>
+    <a onclick="show_login()" href="#"><p>BELÉPÉS</p></a>
+    <a onclick="show_reg()" href="#"><p>REGISZTRÁCIÓ</p></a>
     <a href="#"><p>ESEMÉNYNAPTÁR</p></a>
 
 {% endblock %}

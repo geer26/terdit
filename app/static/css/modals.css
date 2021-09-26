@@ -15,8 +15,8 @@
 
 .loginmodal{
     position: relative;
-    width: 30vw;
-    height: 80vh;
+    max-width: 90vw;
+    max-height: 80vh;
 
     font-family: roboto;
     font-weight: bold;
@@ -46,9 +46,18 @@
     cursor: pointer;
 }
 
-.closeicon:hover{
-    height: 36px;
-    width: 36px;
+.closeicon:hover{ű
     top: -18px;
     right: -18px;
+    height: 36px;
+    width: 36px;
+}
+
+.errormessage{
+    color: red;
+}
+
+.bu{
+    margin-top: 10px;
+    margin-bottom: 10px;
 }

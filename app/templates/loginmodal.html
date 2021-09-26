@@ -3,9 +3,13 @@
     <div class="loginmodal">
         <div id="closeicon" class="closeicon" onclick="close_modal()"></div>
 
-        <h2>
+        <h3>
             BELÉPÉS
-        </h2>
+        </h3>
+
+        <p class="errormessage" style="color: red;">
+            Hibaüzenet
+        </p>
 
         <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
           <i class="material-icons prefix">account_circle</i>
@@ -18,6 +22,15 @@
           <input id="password" type="password" class="validate">
           <label for="password">Jelszó</label>
         </div>
+
+        <label>
+            <input type="checkbox" id="remember_me" name="remember_me" class="filled-in"/>
+            <span style="color: black; font-weight: normal;">Maradjak beléptetve</span>
+        </label>
+
+        <br><a class="waves-effect waves-light btn teal bu" onclick="login()">belépés</a>
+
+        <p style="font-size: .6rem;">Még nem reisztráltál? <a onclick="show_reg()">Regisztráció</a></p>
 
     </div>
 
