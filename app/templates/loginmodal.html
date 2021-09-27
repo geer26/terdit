@@ -7,19 +7,19 @@
             BELÉPÉS
         </h3>
 
-        <p class="errormessage" style="color: red;">
+        <p class="errormessage" style="color: red; display: none;">
             Hibaüzenet
         </p>
 
         <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
           <i class="material-icons prefix">account_circle</i>
-          <input id="login-username" type="text" class="validate">
+          <input id="login-username" type="text" class="validate" onkeyup="hide_error()">
           <label for="login-username">Felhasználónév</label>
         </div>
 
         <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
           <i class="material-icons prefix">password</i>
-          <input id="login-password" type="password" class="validate">
+          <input id="login-password" type="password" class="validate" onkeyup="hide_error()">
           <label for="login-password">Jelszó</label>
         </div>
 

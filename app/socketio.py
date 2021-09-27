@@ -27,18 +27,20 @@ def event_dispatcher(message):
     return True
 
 def login_attempt(message):
+    SID = request.sid
     if current_user.is_authenticated:
         return {'status': 1, 'message': 'Already logged in!'}
     username = message['username']
     password = message['password']
     user = User.query.filter_by(username=str(username)).first()
     if not user:
-        return {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}
-    valid_pw = False
-    if user.check_password(str(password)): valid_pw = True
-    if not user or not valid_pw:
-        return {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}
-    return {'status': 0 }
+        send_message(SID, {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}, event='loginattempt')
+        return False
+    if not user.check_password(str(password)):
+        send_message(SID, {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}, event='loginattempt')
+        return False
+    send_message(SID, {'status': 0}, event='loginattempt')
+    return True
 
 
 
