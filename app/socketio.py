@@ -1,25 +1,46 @@
-from app import socket
+from app import socket, db
 from flask import request, redirect, render_template
 from flask_login import current_user, login_user, logout_user, login_required
+from app.models import User
 
 
-def send_message(sid, message):
-    print('SOMETHING SENT BACK!')
-    socket.send('event', message, namespace='/downstream', room=sid)
+'''
+EVENT LIST
+ - test - 
+    testing purposes
+    
+ - loginattempt -
+    Attempts a login with username and password. If success: redirect to /, else send an error text.
+'''
+
+
+def send_message(sid, message, event='test'):
+    socket.emit(event, message, room=sid)
     return True
 
 
 def event_dispatcher(message):
-
     SID = request.sid
     print(f'DATA: {message}, SID: {SID}')
-
-    print(current_user.is_authenticated)
-
-    #send_message(SID, 'Connection accepted')
-    socket.send('event', message, namespace='/downstream', room=SID)
-
+    print(f'USER IS LOGGED IN: {current_user.is_authenticated}')
+    send_message(SID, 'DATA ACCEPTED')
     return True
 
+def login_attempt(message):
+    if current_user.is_authenticated:
+        return {'status': 1, 'message': 'Already logged in!'}
+    username = message['username']
+    password = message['password']
+    user = User.query.filter_by(username=str(username)).first()
+    if not user:
+        return {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}
+    valid_pw = False
+    if user.check_password(str(password)): valid_pw = True
+    if not user or not valid_pw:
+        return {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}
+    return {'status': 0 }
 
-socket.on_event('event', event_dispatcher, namespace='/upstream')
+
+
+socket.on_event('test', event_dispatcher)
+socket.on_event('loginattempt', login_attempt)

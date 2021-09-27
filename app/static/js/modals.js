@@ -15,6 +15,9 @@ function show_reg(){
     $('#regback').show();
 }
 
-function login(){
-    console.log('LOGIN TRIGGERED');
+function loginattempt(){
+    var username = $('#login-username').val();
+    var password = $('#login-password').val();
+    console.log(username, ' : ', password);
+    send_message({username: username, password: password}, 'loginattempt');
 }

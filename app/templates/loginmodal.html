@@ -13,14 +13,14 @@
 
         <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
           <i class="material-icons prefix">account_circle</i>
-          <input id="username" type="text" class="validate">
-          <label for="username">Felhasználónév</label>
+          <input id="login-username" type="text" class="validate">
+          <label for="login-username">Felhasználónév</label>
         </div>
 
         <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
           <i class="material-icons prefix">password</i>
-          <input id="password" type="password" class="validate">
-          <label for="password">Jelszó</label>
+          <input id="login-password" type="password" class="validate">
+          <label for="login-password">Jelszó</label>
         </div>
 
         <label>
@@ -28,9 +28,9 @@
             <span style="color: black; font-weight: normal;">Maradjak beléptetve</span>
         </label>
 
-        <br><a class="waves-effect waves-light btn teal bu" onclick="login()">belépés</a>
+        <br><a class="waves-effect waves-light btn teal bu" onclick="loginattempt()">belépés</a>
 
-        <p style="font-size: .6rem;">Még nem reisztráltál? <a onclick="show_reg()">Regisztráció</a></p>
+        <p style="font-size: .8rem;">Még nem reisztráltál? <a onclick="show_reg()">Regisztráció</a></p>
 
     </div>
 

@@ -1,20 +1,27 @@
-var upstream = io('/upstream');
-var downstream = io('/downstream')
+const socket = io({
+  withCredentials: true
+});
 
 
-function send_message(message, event='event'){
-    upstream.emit(event, message);
+function send_message(message, event='test'){
+    socket.emit(event, message);
 }
 
 
-upstream.on('connect', () => {
-        console.log('CONNECTED');
-        var data = {data: 'I\'m connected!'}
-        send_message(data, 'event')
+socket.on('connect', () => {
+        console.log('SOCKET CONNECTED');
+        var data = {data: 'Socket connected!'};
+        send_message(data, 'test');
     });
 
 
-downstream.on('event', (data) => {
+socket.on('test', (data) => {
         console.log('SOMETHING CAME BACK!');
         console.log(data);
     });
+
+socket.on('loginattempt', (data) => {
+        console.log(data);
+    });
+
+
