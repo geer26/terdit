@@ -4,32 +4,18 @@ const socket = io({
 
 
 function send_message(message, event='test'){
+    show_loader();
     socket.emit(event, message);
 }
 
 
-/*
-socket.on('connect', () => {
-        console.log('SOCKET CONNECTED');
-        var data = {data: 'Socket connected!'};
-        send_message(data, 'test');
-    });
-*/
-
-/*
-socket.on('test', (data) => {
-        console.log('SOMETHING CAME BACK!');
-        console.log(data);
-    });
-*/
-
-
 socket.on('loginattempt', (data) => {
         //console.log(data);
+        hide_loader();
         switch (data['status']) {
             case 0:
                 //console.log('Must be redirected');
-                window.location.replace(window.location.hostname);
+                location.href = '/';
                 break;
             case 1:
                 $('.errormessage').text(data['message']);

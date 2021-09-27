@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+
+{% block header %}
+    <link rel="stylesheet" href="/static/css/modals.css">
+    <script src="/static/js/adminsocket_def.js" defer></script>
+{% endblock %}
+
+{% block body %}
+
+    {% include 'loginmodal.html' %}
+    {% include 'regmodal.html' %}
+
+    <h2>
+        ADMIN INDEX PAGE!
+    </h2>
+
+{% endblock %}
