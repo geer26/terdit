@@ -1,5 +1,8 @@
 $(document).ready(function(){
-    $('.carousel').carousel();
+    $('.carousel').carousel({
+        //fullWidth: true,
+        indicators: true
+    });
   });
 
 function get_data(){
