@@ -15,7 +15,7 @@
 
 .loginmodal{
     position: relative;
-    max-width: 90vw;
+    width: 40vw;
     max-height: 80vh;
 
     font-family: roboto;
