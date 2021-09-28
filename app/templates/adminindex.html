@@ -2,7 +2,9 @@
 
 {% block header %}
 <link rel="stylesheet" href="/static/css/admin.css">
+<link rel="stylesheet" href="/static/css/tempust.css">
 <script src="/static/js/admin.js" defer></script>
+<script src="/static/js/tempust.js"></script>
 {% endblock %}
 
 {% block body %}
@@ -16,19 +18,19 @@
     <div class="carousel carousel-slider center main-container" style="height: 100%;">
 
         <div class="carousel-item red lighten-2" style="overflow:auto; border-radius: 2px;">
-            <h2> Saját beállítások </h2>
+            {% include '/admin_chunks/su_settings.html' %}
         </div>
 
         <div class="carousel-item blue lighten-2" style="overflow:auto; border-radius: 2px;">
-            <h2> Események szerkesztése </h2>
+            {% include '/admin_chunks/su_events.html' %}
         </div>
 
         <div class="carousel-item amber lighten-2" style="overflow:auto; border-radius: 2px;">
-            <h2> Kliensek </h2>
+            {% include '/admin_chunks/su_clients.html' %}
         </div>
 
         <div class="carousel-item green white-text" style="overflow:auto; border-radius: 2px;">
-            <h2> Adminisztrátorok </h2>
+            {% include '/admin_chunks/su_admins.html' %}
         </div>
 
     </div>
