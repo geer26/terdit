@@ -1,4 +1,4 @@
-const socket = io({
+var socket = io({
   withCredentials: true
 });
 
@@ -14,8 +14,8 @@ socket.on('loginattempt', (data) => {
         hide_loader();
         switch (data['status']) {
             case 0:
-                //console.log('Must be redirected');
-                location.href = '/';
+                console.log('Must be redirected');
+                $("#loginform").submit()
                 break;
             case 1:
                 $('.errormessage').text(data['message']);

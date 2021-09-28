@@ -2,6 +2,7 @@ from app import app, db
 from flask import request, redirect, render_template
 from flask_login import current_user, login_user, logout_user, login_required
 from app.models import User
+from datetime import datetime
 
 
 @app.route('/')
@@ -28,3 +29,44 @@ def addsu(suname, password):
         db.session.add(user)
         db.session.commit()
     return redirect('/')
+
+
+@app.route('/logout', methods=['GET'])
+def logout():
+    if not current_user.is_authenticated:
+        return {'message': 'Logout refused'}, 401
+    user = current_user
+    user.last_modified_at = datetime.now()
+    db.session.commit()
+    logout_user()
+    return redirect('/')
+
+
+@app.route('/login', methods=['POST'])
+def login():
+
+    if request.method != 'POST' or current_user.is_authenticated:
+        return {'message': 'Login refused'}, 401
+
+    username = request.form['login-username']
+    password = request.form['login-password']
+
+    try:
+        remember = request.form['remember_me']
+    except:
+        remember = None
+
+    user = User.query.filter_by(username=str(username)).first()
+
+    if user.check_password(str(password)):
+        if not remember:
+            login_user(user)
+        else:
+            login_user(user, remember=remember)
+
+        user.last_modified_at = datetime.now()
+        db.session.commit()
+        return redirect('/')
+    
+    else:
+        return {'message': 'Login refused'}, 401

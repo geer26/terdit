@@ -33,7 +33,6 @@ def login_attempt(message):
         return {'status': 1, 'message': 'Already logged in!'}
     username = message['username']
     password = message['password']
-    remember = message['remember_me']
     user = User.query.filter_by(username=str(username)).first()
     if not user:
         send_message(SID, {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}, event='loginattempt')
@@ -41,8 +40,6 @@ def login_attempt(message):
     if not user.check_password(str(password)):
         send_message(SID, {'status': 2, 'message': 'Hibás felhasználónév vagy jelszó'}, event='loginattempt')
         return False
-    login_user(user, remember=remember)
-    #return redirect('/')
     send_message(SID, {'status': 0}, event='loginattempt')
     return True
 

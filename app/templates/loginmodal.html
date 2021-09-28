@@ -11,22 +11,26 @@
             Hibaüzenet
         </p>
 
-        <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
-          <i class="material-icons prefix">account_circle</i>
-          <input id="login-username" type="text" class="validate" onkeyup="hide_error()">
-          <label for="login-username">Felhasználónév</label>
-        </div>
+        <form id="loginform" method="post" action="/login">
 
-        <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
-          <i class="material-icons prefix">password</i>
-          <input id="login-password" type="password" class="validate" onkeyup="hide_error()">
-          <label for="login-password">Jelszó</label>
-        </div>
+            <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
+                <i class="material-icons prefix">account_circle</i>
+                <input id="login-username" name="login-username" type="text" class="validate" onkeyup="hide_error()">
+                <label for="login-username">Felhasználónév</label>
+            </div>
 
-        <label>
-            <input type="checkbox" id="remember_me" name="remember_me" class="filled-in"/>
-            <span style="color: black; font-weight: normal;">Maradjak beléptetve</span>
-        </label>
+            <div class="input-field" style="width: 70%; margin: auto; margin-top: 10px;">
+                <i class="material-icons prefix">password</i>
+                <input id="login-password" name="login-password" type="password" class="validate" onkeyup="hide_error()">
+                <label for="login-password">Jelszó</label>
+            </div>
+
+            <label>
+                <input type="checkbox" id="remember_me" name="remember_me" class="filled-in"/>
+                <span style="color: black; font-weight: normal;">Maradjak beléptetve</span>
+            </label>
+
+        </form>
 
         <br><a class="waves-effect waves-light btn teal bu" onclick="loginattempt()">belépés</a>
 
