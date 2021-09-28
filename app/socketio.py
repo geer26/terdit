@@ -44,6 +44,14 @@ def login_attempt(message):
     return True
 
 
+def admin_stream(message):
+    SID = request.sid
+    if not current_user.is_authenticated or current_user.userlevel != 0:
+        return 'Access denied!', 401
+
+
+
 
 socket.on_event('test', event_dispatcher)
 socket.on_event('loginattempt', login_attempt)
+socket.on_event('admin_stream', admin_stream)

@@ -15,7 +15,7 @@
 
 .loginmodal{
     position: relative;
-    width: 40vw;
+    width: 30vw;
     max-height: 80vh;
 
     font-family: roboto;
@@ -28,6 +28,12 @@
 
     text-align: center;
 
+}
+
+@media only screen and (max-width: 600px) {
+    .loginmodal{
+        width: 90vw;
+    }
 }
 
 .loginmodal h3{

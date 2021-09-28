@@ -1,14 +1,39 @@
 {% extends 'base.html' %}
 
 {% block header %}
+<link rel="stylesheet" href="/static/css/admin.css">
+<script src="/static/js/admin.js" defer></script>
 {% endblock %}
 
 {% block body %}
 
-    <button onclick="location.href='/logout'">Kilépés</button>
+<div class="main">
 
-    <h2>
-        ADMIN INDEX PAGE!
-    </h2>
+    <div id="header" class="header-container">
+        <button onclick="location.href='/logout'">Kilépés</button>
+    </div>
+
+    <div class="carousel carousel-slider center main-container" style="height: 100%;">
+
+        <div class="carousel-item red lighten-2" style="overflow:auto; border-radius: 2px;">
+            <h2> Saját beállítások </h2>
+        </div>
+
+        <div class="carousel-item blue lighten-2" style="overflow:auto; border-radius: 2px;">
+            <h2> Események szerkesztése </h2>
+        </div>
+
+        <div class="carousel-item amber lighten-2" style="overflow:auto; border-radius: 2px;">
+            <h2> Kliensek </h2>
+        </div>
+
+        <div class="carousel-item green white-text" style="overflow:auto; border-radius: 2px;">
+            <h2> Adminisztrátorok </h2>
+        </div>
+
+    </div>
+
+</div>
+
 
 {% endblock %}
