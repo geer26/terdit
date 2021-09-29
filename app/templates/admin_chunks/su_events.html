@@ -1,13 +1,13 @@
 <h2> Események szerkesztése </h2>
 
-<div id="tempust"></div>
+<div id="evoCalendar"></div>
 
 <script>
-    $("#tempust").tempust({
-                date: new Date("2021/09/28"),
-                offset: 1,
-                events: {
-                    "2021/09/29": $("<div>jQueryScript Event</div>")
-                }
-            });
+
+    var myEvents = [];
+
+    $('#evoCalendar').evoCalendar({
+        calendarEvents: myEvents
+    });
+
 </script>
