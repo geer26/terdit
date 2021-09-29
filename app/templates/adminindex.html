@@ -2,7 +2,7 @@
 
 {% block header %}
 <link rel="stylesheet" href="/static/css/admin.css">
-<link rel="stylesheet" href="/static/css/evo-calendar.min.css">
+<link rel="stylesheet" href="/static/css/evo-calendar.css">
 <script src="/static/js/admin.js" defer></script>
 <script src="/static/js/evo-calendar.min.js"></script>
 {% endblock %}
@@ -21,7 +21,7 @@
             {% include '/admin_chunks/su_settings.html' %}
         </div>
 
-        <div class="carousel-item blue lighten-2" style="overflow:auto; border-radius: 2px;">
+        <div class="carousel-item blue lighten-2" style="overflow:auto; display: flex; align-content: center; justify-content: center; width: 100%;">
             {% include '/admin_chunks/su_events.html' %}
         </div>
 

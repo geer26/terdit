@@ -1,13 +1,16 @@
-<h2> Események szerkesztése </h2>
+<!--<h2> Események szerkesztése </h2>-->
 
-<div id="evoCalendar"></div>
+<div style="margin: auto; overflow: auto; width: 80%;">
+    <div id="evoCalendar"></div>
+</div>
 
 <script>
 
     var myEvents = [];
 
     $('#evoCalendar').evoCalendar({
-        calendarEvents: myEvents
+        calendarEvents: myEvents,
+        firstDayOfWeek: 1
     });
 
 </script>
